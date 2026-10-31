@@ -12,6 +12,8 @@
 
 **把一堆论文，变成有取舍的阅读计划、可追溯的证据网络和更清楚的研究问题。**
 
+**验证边界：** 在线检索召回及质量/成本的比较效果尚未评测。行为验证来自小型给定文献包，以及范围明确的历史示例。
+
 ## 为什么做这个 skill？
 
 研究者的注意力有限，论文却越来越多。在 AI 加速研究与写作的时代，精致的摘要和流畅的总结，容易让证据质量截然不同的论文都显得很有价值。
@@ -48,13 +50,13 @@ evidence.json   论点、出处、支持综合与关系账本
 search-log.md   检索、筛选、访问限制与停止原因
 ```
 
-小问题可以直接在对话中回答；已有证据地图也可以随着新论文或更正结果更新。
+Scout 默认输出简短判断；保存时可用[最小账本](examples/scout/evidence.json)。完整网络留给 Map/Update 或确实会改变决策的情况。已有地图可以随着新论文或更正结果更新。
 
 ## 看一个真实案例：LLM 能否自我修正？
 
 Self-Refine、*Large Language Models Cannot Self-Correct Reasoning Yet* 和 CRITIC 是一组有用的历史材料。仅凭标题，无法判断它们是否在相同条件下互相矛盾。
 
-[三篇论文示例](examples/self-correction/report.md)检查了任务结果、初始提示、工具权限和复用的比较结果，输出阅读取舍、条件化的支持综合，以及一个可能削弱研究动机的诊断实验。这个示例只覆盖选定历史材料，不代表当前领域全景。
+[修正版三篇论文示例](examples/self-correction/report.md)先记录主结论，补入内在修正失败、oracle 停止、同回答数基线及完整正负消融。初版曾遗漏决定性负向证据，[旧版快照](evals/runs/example-v1/report.md)和[修订记录](evals/revision-2026-10-31.md)保留这一错误及修复过程。新版给出具体命题判断、阅读取舍及可能削弱动机的诊断。这个示例只覆盖选定历史材料，不代表当前领域全景。
 
 仓库还提供[明确标注为虚构的文献包](evals/fixtures/agent-feedback.md)，包含重复证据、摘要口号、跨领域类比和相反结果，可查看[独立试用及修正产物](evals/runs/offline-network/report.md)。
 
@@ -71,7 +73,7 @@ mkdir -p ~/.agents/skills
 cp -R skills/research-weave ~/.agents/skills/
 ```
 
-这里采用 [Codex 官方文档](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills)所列的用户目录。如果只想供单个项目使用，可放在该项目的 `.agents/skills/research-weave/`。更新已有安装时替换原 skill 目录，避免重复嵌套。
+这里采用 [Codex 官方文档](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills)所列的用户目录。如果只想供单个项目使用，可放在该项目的 `.agents/skills/research-weave/`。该位置已在 2026-10-31 重新核对官方说明。若已有宿主配置为读取 `~/.codex/skills`，可保留原位置；以实际加载的目录为准，避免重复安装。更新时替换原 skill 目录，避免重复嵌套。
 
 核心文件是 `SKILL.md`、按需参考和一个 Python 辅助脚本。其他支持该格式的 agent 环境可按其文档配置目录和调用方式；本仓库记录的试用在 Codex 中完成，其他运行环境尚未独立测试。
 
@@ -103,14 +105,14 @@ cp -R skills/research-weave ~/.agents/skills/
 
 重要结论应指向实际检查过的原文位置。只有摘要的线索保持暂定，来源观察、作者解释与 agent 推断分开记录。没有检索到某个结果或解决方案，不代表它不存在。
 
-目前包含 **12 项检查器测试**、真实论文示例，以及一轮虚构材料的独立试用和结果审阅。试用曾暴露“把局部负结果计作全称失败命题的直接支持”问题，规则和产物已经修正，初始记录保留。当前是可检查的初版，尚未通过对照评测证明效果优于其他工作流。
+目前包含 **37 项检查器测试**、修正后的真实论文示例，以及虚构文献包上的独立试用。独立审核还复现了主结果遗漏、改标签重复计数及异常输入崩溃，检查器与示例已修订。初次试用曾暴露“把局部负结果计作全称失败命题的直接支持”问题，规则和产物已经修正，初始记录保留。当前是可检查的初版，尚未通过对照评测证明效果优于其他工作流。
 
 ```bash
 python3 -m unittest discover -s tests -v
 python3 skills/research-weave/scripts/check_evidence.py examples/self-correction/evidence.json
 ```
 
-脚本检查引用、计数与部分证据状态约束；来源含义、科学有效性和检索覆盖仍需审阅。完整过程见[验证记录](evals/validation.md)。
+脚本能拒绝重复的已声明来源身份、状态/计数冲突和未支持的关系端点，也会提示缺少关系出处、共享来源元数据和未知字段。但隐瞒或改写来源仍可能绕过检查；它不证明实际独立性、逻辑蕴含、主结果完整性或检索召回。原文审阅仍是必要步骤。见[本次修订验证](evals/revision-2026-10-31.md)与[历史记录](evals/validation.md)。
 
 ## 深入了解与改进
 

@@ -12,6 +12,8 @@
 
 **Turn a pile of papers into a reading plan, an evidence map, and a sharper research question.**
 
+**Validation boundary:** Online search recall and comparative quality/cost have not been benchmarked. Behavioral evidence comes from small supplied corpora and a bounded historical walkthrough.
+
 ## Why Research Weave?
 
 Research attention is scarce. As paper production accelerates, polished abstracts and fluent AI summaries can make very different bodies of evidence look equally convincing. The hard questions remain:
@@ -50,13 +52,13 @@ evidence.json   Reusable claims, provenance, support synthesis, and relationship
 search-log.md   Searches, screening decisions, access limits, and stopping reason
 ```
 
-Small requests can stay in the conversation. Existing maps can be updated as new papers or corrections arrive.
+Scout starts with a short decision report and an [optional compact ledger](examples/scout/evidence.json); a full network is reserved for Map/Update or when it changes the decision. Existing maps can be updated as papers or corrections arrive.
 
 ## A worked example: can LLMs self-correct?
 
 Self-Refine, *Large Language Models Cannot Self-Correct Reasoning Yet*, and CRITIC make a useful historical test case. Their titles alone cannot establish a like-for-like disagreement.
 
-The [three-paper walkthrough 中文](examples/self-correction/report.md) inspects task-specific results, prompt controls, tool access, and reused comparison rows. It produces a focused reading queue, conditional support synthesis, and a diagnostic experiment with an outcome that would weaken the motivation. The example is bounded to selected historical evidence; it does not claim to survey the current field.
+The [corrected three-paper walkthrough 中文](examples/self-correction/report.md) records each paper’s main conclusion, including intrinsic correction failures, oracle stopping, response-matched baselines, and both positive and negative no-tool rows. The first version omitted decisive negative evidence; its [snapshot](evals/runs/example-v1/report.md) and [revision notes](evals/revision-2026-10-31.md) remain available. It produces a focused reading queue, conditional support synthesis, and a diagnostic experiment with an outcome that would weaken the motivation. The example is bounded to selected historical evidence; it does not claim to survey the current field.
 
 For an additional test, an [explicitly fictional source packet](evals/fixtures/agent-feedback.md) includes repeated evidence, an abstract-only headline, a cross-field analogy, and conflicting results. You can inspect the [independent trial and corrections 中文](evals/runs/offline-network/report.md).
 
@@ -73,7 +75,7 @@ mkdir -p ~/.agents/skills
 cp -R skills/research-weave ~/.agents/skills/
 ```
 
-This uses the user directory documented in [official Codex skill guidance](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills). For a project-only installation, place the folder at `.agents/skills/research-weave/` in that project. When updating an existing installation, replace its skill folder rather than creating a nested duplicate.
+This uses the user directory documented in [official Codex skill guidance](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills). For a project-only installation, place the folder at `.agents/skills/research-weave/` in that project. This location was rechecked against official guidance on 2026-10-31. An existing host configured to discover `~/.codex/skills` can retain that location; use the directory your host actually loads and avoid duplicate installations. When updating, replace the skill folder rather than creating a nested duplicate.
 
 The core is plain `SKILL.md` instructions plus references and a Python helper. In another agent environment that supports this format, use its documented skill directory and invocation method. The documented trial here used Codex; other runtimes have not been independently tested.
 
@@ -107,14 +109,14 @@ Live discovery needs search and source access from the host agent. With only loc
 
 Every decision-bearing claim should point to an inspected source location. Abstract-only leads remain provisional. Observations, author interpretations, and agent inferences are recorded separately. A quiet literature search does not establish that a result or a resolution does not exist.
 
-The repository includes **12 checker tests**, a real-paper walkthrough, and an independent trial on fictional materials followed by review and corrections. That trial exposed a scope-transfer error: a local negative finding had been counted as direct support for a universal failure claim. The rule and output were corrected; the initial artifact is retained. This is an early version with inspectable validation, without a comparative performance claim.
+The repository includes **37 checker tests**, a corrected real-paper walkthrough, and independent trials on fictional corpora. Independent review also reproduced missing main-result coverage, relabeled duplicate sources, and a malformed-input crash. The checker and example were revised. The initial trial exposed a scope-transfer error: a local negative finding had been counted as direct support for a universal failure claim. The rule and output were corrected; the initial artifact is retained. This is an early version with inspectable validation, without a comparative performance claim.
 
 ```bash
 python3 -m unittest discover -s tests -v
 python3 skills/research-weave/scripts/check_evidence.py examples/self-correction/evidence.json
 ```
 
-The checker verifies bookkeeping and some evidence-status constraints. Source meaning, scientific validity, and search coverage still need review. Full details: [validation record 中文](evals/validation.md).
+The checker rejects duplicate declared source identities, inconsistent evidence statuses/counts and unsupported relationship endpoints; it cautions on undeclared relationship provenance, shared source metadata and unknown fields. Different labels can still hide an undisclosed shared origin: the checker does not establish actual independence, logical entailment, main-result completeness or search recall. Source review remains necessary. Full details: [current revision validation 中文](evals/revision-2026-10-31.md), [historical validation 中文](evals/validation.md).
 
 ## Explore and improve
 

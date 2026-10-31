@@ -1,0 +1,94 @@
+{
+  "schema_version": 2,
+  "context": {
+    "question": "Test loop?",
+    "decision": "Prototype choice",
+    "target_setting": "Fixed task/model/budget",
+    "mode": "scout",
+    "as_of": "2026-10-31",
+    "bounds": "Explicitly fictional demonstration of the compact format; two supplied excerpts only",
+    "stop_reason": "Supplied example exhausted",
+    "stop_basis": "corpus_exhausted"
+  },
+  "papers": [
+    {
+      "id": "P1",
+      "title": "Fictional study 1",
+      "url": "local:P1",
+      "version": "1",
+      "access": "excerpt",
+      "evidence_family": "F1",
+      "main_claim_ids": [
+        "C1"
+      ]
+    },
+    {
+      "id": "P2",
+      "title": "Fictional study 2",
+      "url": "local:P2",
+      "version": "1",
+      "access": "excerpt",
+      "evidence_family": "F2",
+      "main_claim_ids": [
+        "C2"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "paper_id": "P1",
+      "statement": "Gain in specified regime",
+      "kind": "empirical",
+      "scope": "Fixed task/model/budget",
+      "evidence": {
+        "locator": "Table 1",
+        "observation": "Paired accuracy gain, 200 tasks, interval excludes zero"
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "Primary result excerpt inspected",
+        "limitation": "One regime"
+      },
+      "uses": [
+        {
+          "role": "fact",
+          "decision": "Whether to test the loop",
+          "transfer_assumption": "Same regime"
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "paper_id": "P2",
+      "statement": "Gain in specified regime",
+      "kind": "empirical",
+      "scope": "Fixed task/model/budget",
+      "evidence": {
+        "locator": "Table 1",
+        "observation": "Paired accuracy gain, 200 tasks, interval excludes zero"
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "Primary result excerpt inspected",
+        "limitation": "One regime"
+      },
+      "uses": [
+        {
+          "role": "fact",
+          "decision": "Whether to test the loop",
+          "transfer_assumption": "Same regime"
+        }
+      ]
+    }
+  ],
+  "reading_queue": [
+    {
+      "paper_id": "P1",
+      "action": "targeted_read",
+      "focus": "Table 1",
+      "reason": "Test loop in target regime"
+    }
+  ],
+  "profile": "scout"
+}

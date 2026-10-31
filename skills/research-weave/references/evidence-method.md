@@ -41,6 +41,8 @@ For decision-bearing sources check later versions, corrections, withdrawals, ind
 
 ## Evidence card
 
+First identify the paper's central conclusion and decisive result/proof locations. Record their claim IDs or explain their omission before extracting ancillary observations. Read the full relevant comparison block, including negative rows. A correct number from a peripheral table can still misrepresent what the paper establishes for the question.
+
 > P3 / C7 — scoped claim. URL/version and section/table/proof locator. Observation with comparator and uncertainty. Authors infer X; we infer Y under assumption Z. Evidence strength/reason. Main validity threat. Research role and project decision. Access status and shared evidence family.
 
 Prefer short faithful paraphrases to long quotations. A locator without an observation is a weak audit trail. A number without metric, baseline, denominator, or conditions is unusable.
@@ -76,7 +78,7 @@ Aggregate at the proposition level, with its scope fixed. Report separately:
 
 Three independent, well-controlled studies can provide stronger convergence than one; ten summaries repeating one experiment still contain one primary result. Weak or misaligned studies need not outweigh a strong directly applicable counterexample. Preserve both counts and the qualitative judgment.
 
-Use `convergent`, `conditional`, `contested`, or `insufficient`, with reasons. Convergent means multiple relevant contributions align after overlap/validity checks, not that a theorem has been proved by vote. Conditional specifies supported settings; contested retains consequential credible counterevidence; insufficient includes poor access or weak direct evidence. These are not calibrated probabilities.
+Use the synthesis labels defined in output-contract.md, with reasons. `refuted` and `uninformative` distinguish an in-scope defeated proposition from relevant but nondiscriminating evidence. Record inherited validity threats explicitly. Convergent means multiple relevant contributions align after overlap/validity checks, not that a theorem has been proved by vote. Conditional specifies supported settings; contested retains consequential credible counterevidence; insufficient includes poor access or weak direct evidence. These are not calibrated probabilities.
 
 Do not pool incompatible outcomes or dependent samples. Formal meta-analysis requires its own protocol. For theory compare assumptions/proof independence; repeating one theorem is not several proofs. One valid in-scope counterexample can refute a universal claim despite many positive cases; an average-effect claim requires a different interpretation.
 

@@ -1,0 +1,319 @@
+{
+  "schema_version": 2,
+  "profile": "scout",
+  "context": {
+    "question": "对 T-7 的 chat、batch=1、同一 GPU 服务，先做 adaptive gamma 还是调优 fixed gamma？",
+    "decision": "先以独立 dev 集调优 fixed gamma；adaptive 暂只做一次全开销诊断，未达门槛前不优先投入。",
+    "mode": "scout",
+    "as_of": "2026-10-31",
+    "bounds": "sources: 仅用户提供的虚构离线包；local: 标识，不是真实文献。仅有摘录，未获取全文。；target: T-7 / chat / batch=1 / 同一 GPU；drafter 与 GPU 类型未由用户指定，D-1/G-A 的迁移须确认。；metric: 端到端 wall-clock tokens/sec；输出分布精确是硬约束。；missing: 全部摘录均未给出精确分布保证或自适应策略的适用证明；无 live 检索、代码审计或独立复现。",
+    "deep_read_budget": 2,
+    "stop_reason": "离线包已检查，已分配两篇精读；不声称检索饱和或全文精读完毕。",
+    "stop_basis": "corpus_exhausted"
+  },
+  "papers": [
+    {
+      "id": "P1",
+      "title": "Adaptive Gamma via Acceptance Forecasting (2024)",
+      "url": "local:P1-v1",
+      "access": "excerpt",
+      "version": "v1",
+      "main_claim_ids": [
+        "C1"
+      ],
+      "evidence_family": "kappa-t7-original",
+      "main_claim": "v1 报告 adaptive 比 best fixed gamma 快 9%；该计时结果已被 P2 修正。",
+      "main_claim_locator": "local:P1-v1, Table 3; Section 6"
+    },
+    {
+      "id": "P2",
+      "title": "Adaptive Gamma via Acceptance Forecasting, v2 (2025)",
+      "url": "local:P2-v2",
+      "access": "excerpt",
+      "version": "v2; P1 correction",
+      "main_claim_ids": [
+        "C2"
+      ],
+      "evidence_family": "kappa-t7-original",
+      "main_claim": "修正计时后 adaptive 对 best fixed 的收益估计为 +2%，精度不足以确定收益方向。",
+      "main_claim_locator": "local:P2-v2, Errata excerpt"
+    },
+    {
+      "id": "P3",
+      "title": "Dynamic Drafting at Scale (2025)",
+      "url": "local:P3-v1",
+      "access": "excerpt",
+      "version": "v1",
+      "main_claim_ids": [
+        "C3"
+      ],
+      "evidence_family": "kappa-t9-extension; shares authors, code and CHAT-500 with P1/P2",
+      "main_claim": "在 T-9/G-B 的 CHAT-500 上，adaptive 的报告收益为正。",
+      "main_claim_locator": "local:P3-v1, methods/results excerpt; Section 5"
+    },
+    {
+      "id": "P4",
+      "title": "When Fixed Is Enough (2025)",
+      "url": "local:P4-v1",
+      "access": "excerpt",
+      "version": "v1",
+      "main_claim_ids": [
+        "C4"
+      ],
+      "evidence_family": "sigma-code; P1-v1 reimplementation dependency",
+      "main_claim": "高接受率代码任务中 adaptive 相对调优 fixed 为 -1%，但区间包含零。",
+      "main_claim_locator": "local:P4-v1, methods/results excerpt; Section 4"
+    },
+    {
+      "id": "P5",
+      "title": "A Survey of Speculative Decoding (2025)",
+      "url": "local:P5-v1",
+      "access": "excerpt",
+      "version": "v1",
+      "main_claim_ids": [
+        "C5"
+      ],
+      "evidence_family": "secondary summary of P1/P3; no new experiments",
+      "main_claim": "综述以 P1 的 +9% 与 P3 的 +11% 声称 adaptive 跨模型一致更好。",
+      "main_claim_locator": "local:P5-v1, Section 7 table"
+    },
+    {
+      "id": "P6",
+      "title": "Adaptive Sampling in Sequential Testing (1998)",
+      "url": "local:P6-v1",
+      "access": "excerpt",
+      "version": "v1",
+      "main_claim_ids": [
+        "C6"
+      ],
+      "evidence_family": "statistics conceptual result",
+      "main_claim": "恒定每观测成本下，按运行证据自适应采样可减少预期样本数。",
+      "main_claim_locator": "local:P6-v1, Section 3"
+    },
+    {
+      "id": "P7",
+      "title": "Speculation Under Load (2026)",
+      "url": "local:P7-abstract",
+      "access": "abstract",
+      "main_claim_ids": [
+        "C7"
+      ],
+      "evidence_family": "unknown",
+      "main_claim": "摘要声称生产 serving 中 adaptive draft length 最高 2x speedup。",
+      "main_claim_locator": "local:P7-abstract, Abstract"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "paper_id": "P1",
+      "statement": "v1 报告 adaptive 比 best fixed gamma 快 9%；该计时结果已被 P2 修正。",
+      "kind": "empirical",
+      "scope": "T-7/D-1, CHAT-500, batch=1, G-A",
+      "evidence": {
+        "locator": "local:P1-v1, Table 3; Section 6",
+        "observation": "tokens/sec +9%，3 seeds 的均值，无区间；fixed gamma=4 在同一 CHAT-500 test 选择；forecasting head 的 3% latency 已计入。"
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "摘录及 P2 支持这一历史观察与修正关系；旧收益本身不作当前支持。",
+        "limitation": "原始错误观察保留用于溯源；不能把 P1/P2 当两次独立实验。"
+      },
+      "uses": [
+        {
+          "role": "evaluation",
+          "decision": "完整计入缓存重建；不用 +9% 为 adaptive 投资背书。",
+          "transfer_assumption": "仅方法历史仍有用途；当前收益以 P2 为准。"
+        }
+      ],
+      "status": "superseded",
+      "superseded_by": "C2"
+    },
+    {
+      "id": "C2",
+      "paper_id": "P2",
+      "statement": "修正计时后 adaptive 对 best fixed 的收益估计为 +2%，精度不足以确定收益方向。",
+      "kind": "empirical",
+      "scope": "与 P1 相同：T-7/D-1, CHAT-500, batch=1, G-A",
+      "evidence": {
+        "locator": "local:P2-v2, Errata excerpt",
+        "observation": "补计 adaptive 臂 draft KV-cache rebuild 后，端到端 tokens/sec +2%，95% interval [-3%,+7%]，5 seeds；其他设置同 P1。"
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "最贴近目标的当前观察，直接约束收益大小和精度；区间跨零，既非零效应证明，也非稳定获益证明。",
+        "limitation": "fixed baseline 仍在同一 test 选 gamma；drafter/GPU 与用户实际配置未确认；区间构造、请求级样本量、精确输出证明未报告。"
+      },
+      "uses": [
+        {
+          "role": "fact",
+          "decision": "优先调好 fixed，并设计一次匹配成本的 held-out 比较。",
+          "transfer_assumption": "需 D-1/G-A 或相近成本结构、chat 分布与 CHAT-500 可迁移。"
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "paper_id": "P3",
+      "statement": "在 T-9/G-B 的 CHAT-500 上，adaptive 的报告收益为正。",
+      "kind": "empirical",
+      "scope": "T-9, CHAT-500, batch=1, G-B；drafter 未报告",
+      "evidence": {
+        "locator": "local:P3-v1, methods/results excerpt; Section 5",
+        "observation": "相对在 held-out dev 选择的 best fixed，tokens/sec +11%，95% interval [+6%,+16%]；Section 5 将其解释为与 P1 一致并可泛化。",
+        "authors_interpretation": "称结果与 P1 一致并确认泛化。",
+        "analyst_inference": "正收益限于此设置；共享代码使计时问题值得核查，独立性未确立。"
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "这是正面观察，但目标模型和 GPU 改变，不能直接证明 T-7 的收益。",
+        "limitation": "共享 Lab Kappa、P1 codebase 和 CHAT-500，非已证实独立确认；是否继承 v1 计时错误未知，不能认定有错；seeds、全部计时项和精确性未报告。"
+      },
+      "uses": [
+        {
+          "role": "boundary",
+          "decision": "保留 adaptive 在某些成本条件下有收益的可能；下一步定位成本和接受率变化。",
+          "transfer_assumption": "T-9/G-B 的 draft/verify 成本比及策略开销须可迁移到 T-7/用户 GPU。"
+        }
+      ]
+    },
+    {
+      "id": "C4",
+      "paper_id": "P4",
+      "statement": "高接受率代码任务中 adaptive 相对调优 fixed 为 -1%，但区间包含零。",
+      "kind": "empirical",
+      "scope": "T-7/D-1, CODE-300 high acceptance, batch=1, G-A",
+      "evidence": {
+        "locator": "local:P4-v1, methods/results excerpt; Section 4",
+        "observation": "fixed 在 dev 调优；adaptive 按 P1-v1 描述重实现；tokens/sec -1%，95% interval [-4%,+2%]；Section 4 泛称 adaptive 无益。",
+        "authors_interpretation": "称 adaptive policies 无益。",
+        "analyst_inference": "P2 与 P4 兼容宽区间，chat/code 也不对齐；无已确立的可比冲突。"
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "是 fixed 可能已够好的重要边界证据；未精确证实负效应，不能把代码任务结论泛化到 chat。",
+        "limitation": "独立团队不等于已确认独立方法证据；依赖 P1-v1 描述，重实现忠实度和计时完整性未知；精确性、seeds 未报告。"
+      },
+      "uses": [
+        {
+          "role": "counterevidence",
+          "decision": "精读以检查 fixed baseline 与高接受率条件，约束 adaptive 的动机。",
+          "transfer_assumption": "高接受率/成本结构须与目标 chat 的相关部分一致；代码到 chat 的迁移未确立。"
+        }
+      ]
+    },
+    {
+      "id": "C5",
+      "paper_id": "P5",
+      "statement": "综述以 P1 的 +9% 与 P3 的 +11% 声称 adaptive 跨模型一致更好。",
+      "kind": "interpretive",
+      "scope": "仅二手总结 P1/P3",
+      "evidence": {
+        "locator": "local:P5-v1, Section 7 table",
+        "observation": "表格引用 P1 +9%、P3 +11%；无新实验。"
+      },
+      "assessment": {
+        "strength": "unsupported",
+        "reason": "未反映 P2 的计时修正；重复原结果不增加独立证据。",
+        "limitation": "不能证明跨模型普遍收益，且来源依赖未解。"
+      },
+      "uses": [
+        {
+          "role": "evaluation",
+          "decision": "不把综述计为额外支持；不消耗精读名额。",
+          "transfer_assumption": "无可用于直接迁移的新增结果。"
+        }
+      ]
+    },
+    {
+      "id": "C6",
+      "paper_id": "P6",
+      "statement": "恒定每观测成本下，按运行证据自适应采样可减少预期样本数。",
+      "kind": "theoretical",
+      "scope": "sequential testing，恒定单次观测成本；无 LLM 实验",
+      "evidence": {
+        "locator": "local:P6-v1, Section 3",
+        "observation": "概念摘录报告 adaptive 比 fixed sample size 的 expected sample count 更低；未给出 decoding 的 wall-clock 比较。"
+      },
+      "assessment": {
+        "strength": "provisional",
+        "reason": "提供类比；摘录不足以核验完整理论证明。",
+        "limitation": "减少样本数不等于提升本任务 tokens/sec；constant-cost 前提未证实。"
+      },
+      "uses": [
+        {
+          "role": "analogy",
+          "decision": "仅作为成本假设提示；后置阅读。",
+          "transfer_assumption": "需将统计样本数映射到 decoding 工作量，并证明实际成本前提成立。"
+        }
+      ]
+    },
+    {
+      "id": "C7",
+      "paper_id": "P7",
+      "statement": "摘要声称生产 serving 中 adaptive draft length 最高 2x speedup。",
+      "kind": "empirical",
+      "scope": "生产 serving；batch、metric、baseline、model、hardware 未报告",
+      "evidence": {
+        "locator": "local:P7-abstract, Abstract",
+        "observation": "仅有 up to 2x 声称，无设置、区间或分母。"
+      },
+      "assessment": {
+        "strength": "unsupported",
+        "reason": "缺少决定适用性的主要字段；不能作为本目标的有效收益观察。",
+        "limitation": "abstract only；输出精确性也未报告。"
+      },
+      "uses": [
+        {
+          "role": "evaluation",
+          "decision": "先补齐正文/设置才能改变优先级；当前不花精读名额。",
+          "transfer_assumption": "需 T-7/chat/batch=1/同 GPU/端到端 matched fixed/精确性都得到核验。"
+        }
+      ]
+    }
+  ],
+  "reading_queue": [
+    {
+      "paper_id": "P2",
+      "action": "deep_read",
+      "focus": "Errata 与方法/计时定义：缓存重建、3% head overhead、区间及 test 选 fixed 的影响；精确性条件若不可见则记缺失。",
+      "reason": "最接近目标且修正旧结论；决定是否值得承担 adaptive 复杂性。当前仅能读摘录，队列不代表已读全文。"
+    },
+    {
+      "paper_id": "P4",
+      "action": "deep_read",
+      "focus": "dev-tuned fixed、CODE-300 的高接受率与按 v1 重实现的细节、完整成本。",
+      "reason": "覆盖 fixed 已足够的竞争解释和不利证据；代码到 chat 的外推仍待诊断。"
+    },
+    {
+      "paper_id": "P3",
+      "action": "targeted_read",
+      "focus": "主结果 +11% 的 T-9/G-B 成本结构、dev 选择与计时是否修正。",
+      "reason": "保留异设置的正证据；共享代码和模型/GPU差异使其暂不能支配 T-7 决策。"
+    },
+    {
+      "paper_id": "P1",
+      "action": "defer",
+      "focus": "必要时追溯方法描述及 v1 timing；不使用旧 +9% 为当前结果。",
+      "reason": "当前性能结果被 P2 取代，与 P2 非独立。"
+    },
+    {
+      "paper_id": "P5",
+      "action": "exclude",
+      "focus": "不用于当前收益判断。",
+      "reason": "无新实验且沿用已修正的 +9%，不能增加证据量。"
+    },
+    {
+      "paper_id": "P6",
+      "action": "defer",
+      "focus": "恒定成本假设与 expected sample count 的类比。",
+      "reason": "非 decoding wall-clock 证据；不优先于目标系统比较。"
+    },
+    {
+      "paper_id": "P7",
+      "action": "verify_access",
+      "focus": "补齐全文、batch、metric、fixed baseline、模型/GPU和精确性。",
+      "reason": "摘要 2x 信息不足，当前不支持目标决策。"
+    }
+  ]
+}

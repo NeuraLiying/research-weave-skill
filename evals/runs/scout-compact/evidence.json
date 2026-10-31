@@ -1,0 +1,241 @@
+{
+  "schema_version": 2,
+  "profile": "scout",
+  "context": {
+    "question": "Does choosing draft length adaptively improve end-to-end tokens/sec over a tuned fixed gamma for exact T-7 chat decoding?",
+    "decision": "Keep a tuned fixed gamma as default; deeply read P2 and P4 before investing in adaptive-policy development. A bounded diagnostic is conditional on an exactness argument and complete matched timing.",
+    "target_setting": "T-7 chat, batch 1, identical single-GPU resources across arms, exact output-distribution preservation. Closest supplied setting: D-1, CHAT-500, G-A. Actual drafter/GPU and traffic equivalence are unconfirmed.",
+    "mode": "scout",
+    "as_of": "2026-10-31",
+    "deep_read_budget": 2,
+    "bounds": "Offline, explicitly fictional supplied corpus only: ../../../evals/fixtures/speculative-decoding.md. All primary access is excerpt or abstract; no full papers or external retrieval. No exactness proof is supplied. P1/P2 are one versioned result history; P3 is a separate but dependent Kappa/code/CHAT-500 result; P4 is a separately conducted Sigma result using a v1 policy description. P5 adds no experiment; P6 is analogy; P7 empirical provenance is unknown. Three inspected empirical result families do not establish three independent contributions.",
+    "stop_reason": "All seven supplied records inspected. Missing branches: full exactness proofs and implementations, independent target-chat replication, broader hardware/traffic transfer, and P7 methods/results. No live saturation claim.",
+    "stop_basis": "corpus_exhausted"
+  },
+  "papers": [
+    {
+      "id": "P1",
+      "title": "Adaptive Gamma via Acceptance Forecasting",
+      "url": "local:P1-v1",
+      "version": "1 (2024)",
+      "access": "excerpt",
+      "evidence_family": "F1: Kappa original CHAT-500 result, corrected by P2",
+      "main_claim_ids": ["C1"]
+    },
+    {
+      "id": "P2",
+      "title": "Adaptive Gamma via Acceptance Forecasting, corrected v2",
+      "url": "local:P2-v2",
+      "version": "2 (2025), same work/authors as P1",
+      "access": "excerpt",
+      "evidence_family": "F1: Kappa original CHAT-500 result, corrected by P2",
+      "main_claim_ids": ["C2", "C8"]
+    },
+    {
+      "id": "P3",
+      "title": "Dynamic Drafting at Scale",
+      "url": "local:P3-v1",
+      "version": "1 (2025)",
+      "access": "excerpt",
+      "evidence_family": "F2: Kappa T-9 result; shares F1 group, codebase and CHAT-500",
+      "main_claim_ids": ["C3"]
+    },
+    {
+      "id": "P4",
+      "title": "When Fixed Is Enough",
+      "url": "local:P4-v1",
+      "version": "1 (2025)",
+      "access": "excerpt",
+      "evidence_family": "F3: Sigma CODE-300 result; policy reimplemented from P1-v1 description",
+      "main_claim_ids": ["C4"]
+    },
+    {
+      "id": "P5",
+      "title": "A Survey of Speculative Decoding",
+      "url": "local:P5-v1",
+      "version": "1 (2025)",
+      "access": "excerpt",
+      "evidence_family": "F1/F2 secondary summary; no new result family",
+      "main_claim_ids": ["C5"]
+    },
+    {
+      "id": "P6",
+      "title": "Adaptive Sampling in Sequential Testing",
+      "url": "local:P6-v1",
+      "version": "1 (1998)",
+      "access": "excerpt",
+      "evidence_family": "F4: conceptual statistics result; no decoding experiment",
+      "main_claim_ids": ["C6"]
+    },
+    {
+      "id": "P7",
+      "title": "Speculation Under Load",
+      "url": "local:P7-abstract",
+      "version": "2026 abstract; version number unreported",
+      "access": "abstract",
+      "evidence_family": "Unresolved P7 origin; independence unknown",
+      "main_claim_ids": ["C7"]
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "paper_id": "P1",
+      "statement": "The original timing reports adaptive gamma improving tokens/sec by 9% over best fixed gamma in T-7 chat; this observation is superseded by C2.",
+      "kind": "empirical",
+      "scope": "T-7, D-1, CHAT-500, batch 1, G-A; best fixed gamma=4 chosen on the same evaluation set",
+      "status": "superseded",
+      "superseded_by": "C2",
+      "evidence": {
+        "locator": "local:P1-v1, Table 3; Section 6; corrected by local:P2-v2 errata",
+        "observation": "+9% relative tokens/sec, mean over 3 seeds, no interval. Forecasting head adds 3% latency and is included, but P2 identifies omitted adaptive-arm draft KV-cache rebuild time. Prompt count and uncertainty construction unreported.",
+        "analyst_inference": "Historical result only; do not count as current direct support or as an independent result alongside v2."
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "Primary excerpt supports the historical report; inspected errata explicitly replace its timing result.",
+        "limitation": "Asymmetric timing invalidates use of the reported 9% as an all-in current gain; test-set comparator selection also remains."
+      },
+      "uses": [{"role": "boundary", "decision": "Reject the original 9% as current investment evidence", "transfer_assumption": "None; retained solely as superseded history"}]
+    },
+    {
+      "id": "C2",
+      "paper_id": "P2",
+      "statement": "Corrected adaptive-versus-fixed timing gives +2% relative tokens/sec with a 95% interval of [-3%, +7%], leaving useful target-setting improvement unresolved.",
+      "kind": "empirical",
+      "scope": "T-7, D-1, CHAT-500, batch 1, G-A; all other settings as P1, including fixed gamma selected on the same evaluation set",
+      "evidence": {
+        "locator": "local:P2-v2, errata: corrected adaptive-vs-best-fixed result",
+        "observation": "+2% relative tokens/sec; 95% interval [-3%, +7%]; 5 seeds; cache rebuild timing fixed. Interval construction, prompt count, actual hardware memory/residency and exactness argument unreported.",
+        "analyst_inference": "Closest supplied evidence to target chat. Both modest loss and gain remain compatible with the reported interval; it establishes neither zero benefit nor reliable superiority."
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "Corrected primary result excerpt inspected; support is for the scoped estimate and its uncertainty, not a positive-effect conclusion.",
+        "limitation": "One dataset/drafter/GPU type; test-set fixed-gamma selection; no supplied correctness proof or detailed interval method."
+      },
+      "uses": [{"role": "fact", "decision": "Keep fixed gamma as default and prioritize corrected paper for a deep read", "transfer_assumption": "CHAT-500/D-1/G-A must represent intended traffic and resources; exactness remains a separate gate"}]
+    },
+    {
+      "id": "C3",
+      "paper_id": "P3",
+      "statement": "Adaptive gamma improves tokens/sec by 11%, with a 95% interval of [6%, 16%], on the reported T-9/G-B chat setup.",
+      "kind": "empirical",
+      "scope": "T-9, CHAT-500, batch 1, G-B; fixed gamma selected on held-out dev; drafter unreported",
+      "inherited_threats": ["C8"],
+      "evidence": {
+        "locator": "local:P3-v1, main methods/results excerpt (+11% result); Section 5 interpretation",
+        "observation": "+11% relative tokens/sec, 95% interval [+6%, +16%]. Lab Kappa reuses P1 codebase and CHAT-500. Seed/prompt counts, interval construction, rejection/cache accounting and exactness unreported.",
+        "authors_interpretation": "Section 5 calls the results consistent with P1 and confirmation of generalisation.",
+        "analyst_inference": "Positive within reported scope, but transfer to smaller T-7/G-A is untested. Shared code makes the C8 timing defect a possible inherited threat, not a confirmed P3 defect; this is not independent replication of P2."
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "Primary main result excerpt inspected; no inference that its interval applies to T-7.",
+        "limitation": "Model/GPU mismatch and dependence on Kappa code/data; correction provenance unknown. A separate family label does not establish independence."
+      },
+      "uses": [{"role": "boundary", "decision": "Targeted-read timing provenance before using P3 to motivate T-7 investment", "transfer_assumption": "Both systems cost balance and adaptive advantage must transfer from T-9/G-B to T-7 on the intended GPU"}]
+    },
+    {
+      "id": "C4",
+      "paper_id": "P4",
+      "statement": "On high-acceptance T-7 code completion, adaptive gamma is -1% versus a dev-tuned fixed gamma, with a 95% interval of [-4%, +2%].",
+      "kind": "empirical",
+      "scope": "T-7, D-1, CODE-300 high-acceptance code completion, batch 1, G-A; Lab Sigma reimplementation from P1-v1 description",
+      "evidence": {
+        "locator": "local:P4-v1, main methods/results excerpt (-1% result); Section 4 interpretation",
+        "observation": "Adaptive relative tokens/sec effect -1%; 95% interval [-4%, +2%]; best fixed gamma tuned on dev. Seed/prompt counts, interval construction, cache timing and exactness argument unreported.",
+        "authors_interpretation": "Section 4 states that adaptive policies provide no benefit.",
+        "analyst_inference": "Boundary evidence from a separate lab, not a universal failure result. Versus C2: scope_mismatch (code/high acceptance vs chat); intervals overlap and neither identifies a precise opposing effect. Acceptance variability is a possible explanation, not an established causal moderator. Reimplementation equivalence to corrected P2 is unknown."
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "Main primary result inspected, including uncertainty and unfavorable adaptive point estimate.",
+        "limitation": "Different task and acceptance regime from target chat; uses v1 policy description; the broad author conclusion exceeds the local evidence."
+      },
+      "uses": [{"role": "counterevidence", "decision": "Spend second deep read on the boundary to useful adaptive gains and a strong fixed comparator", "transfer_assumption": "Its negative-to-small-positive interval bounds this code regime only; target chat and implementation parity require testing"}]
+    },
+    {
+      "id": "C5",
+      "paper_id": "P5",
+      "statement": "Adaptive drafting is consistently better across models.",
+      "kind": "interpretive",
+      "scope": "Survey's broad cross-model conclusion; source table only repeats P1 and P3",
+      "evidence": {
+        "locator": "local:P5-v1, Section 7 table and accompanying statement",
+        "observation": "Table lists P1 +9% and P3 +11%; no new experiments.",
+        "authors_interpretation": "Adaptive drafting is consistently better across models.",
+        "analyst_inference": "The conclusion recycles a superseded estimate and dependent results. It supplies no independent support for reliable T-7 benefit and is not established by the inspected corpus."
+      },
+      "assessment": {
+        "strength": "unsupported",
+        "reason": "Its main conclusion is visible but the underlying evidence does not support the breadth or consistency asserted.",
+        "limitation": "Secondary summary, stale P1 estimate, no new results; the corpus is not a comprehensive literature search."
+      },
+      "uses": [{"role": "boundary", "decision": "Defer the survey and avoid counting it as replication", "transfer_assumption": "None; its broad claim is not adopted"}]
+    },
+    {
+      "id": "C6",
+      "paper_id": "P6",
+      "statement": "Adapting the number of observations to running evidence reduces expected sample count versus fixed size when per-observation cost is constant.",
+      "kind": "theoretical",
+      "scope": "Sequential testing with constant per-observation cost; no LLM or decoding experiment",
+      "evidence": {
+        "locator": "local:P6-v1, Section 3 conceptual excerpt; formal proof/result location not supplied",
+        "observation": "Primary conceptual excerpt states a sample-count reduction; magnitude, detailed assumptions, comparator selection and proof are absent.",
+        "analyst_inference": "A source of analogy for allocating work, not evidence for wall-clock decoding improvement or exact output-distribution preservation."
+      },
+      "assessment": {
+        "strength": "provisional",
+        "reason": "Main conceptual assertion captured, but the decisive proof is not present in the supplied excerpt.",
+        "limitation": "Constant per-observation cost and sample-count objective need not represent GPU decoding with forecasting, verification and cache costs."
+      },
+      "uses": [{"role": "analogy", "decision": "Defer under the two-paper deep-read budget", "transfer_assumption": "A new cost model and correctness argument would be needed before transferring this theory"}]
+    },
+    {
+      "id": "C7",
+      "paper_id": "P7",
+      "statement": "The abstract claims adaptive draft length gives up to 2x speedup in production serving.",
+      "kind": "empirical",
+      "scope": "Production serving; batch size, metric, comparator, model, hardware and exactness unspecified",
+      "evidence": {
+        "locator": "local:P7-abstract, abstract only; decisive methods/result location unavailable",
+        "observation": "Only an up-to-2x headline is supplied; denominator, sampling unit and uncertainty are absent.",
+        "analyst_inference": "Unverified lead, not direct evidence for exact T-7 batch-1 wall-clock throughput."
+      },
+      "assessment": {
+        "strength": "provisional",
+        "reason": "Abstract inspected without primary methods or decisive results.",
+        "limitation": "Cannot align the claimed speedup with the user's target setting or establish provenance/independence."
+      },
+      "uses": [{"role": "boundary", "decision": "Verify access and scope before any promotion into the deep-read queue", "transfer_assumption": "Must establish matching metric, baseline, hardware, model, batch size and exactness"}]
+    },
+    {
+      "id": "C8",
+      "paper_id": "P2",
+      "statement": "The v1 timing omitted post-rejection draft-model KV-cache rebuild for the adaptive arm only.",
+      "kind": "empirical",
+      "scope": "P1-v1 timing defect; no claim that P3 or P4 necessarily inherits it",
+      "evidence": {
+        "locator": "local:P2-v2, errata explanation of the v1 timing omission",
+        "observation": "Errata explicitly identify adaptive-only exclusion of draft-model KV-cache rebuild after rejections.",
+        "analyst_inference": "Require full rejection/cache accounting in a target experiment. P3 code reuse creates a specific audit question; P4's reimplementation does not itself prove the same omission."
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "Explicit inspected primary errata statement.",
+        "limitation": "The packet does not identify P3/P4 timing code or show whether they carried or fixed this issue."
+      },
+      "uses": [{"role": "method", "decision": "Audit complete timing before crediting adaptive throughput gains", "transfer_assumption": "Applicability of this particular defect to other implementations must be checked, not assumed"}]
+    }
+  ],
+  "reading_queue": [
+    {"paper_id": "P2", "action": "deep_read", "focus": "Errata, corrected +2% result, complete timing, fixed-gamma selection and exactness argument if available", "reason": "Most direct evidence for T-7 chat; determines whether a useful gain survives complete costing and a valid comparison"},
+    {"paper_id": "P4", "action": "deep_read", "focus": "Main -1% result and interval, dev-tuned fixed comparator, v1 reimplementation and timing/correctness parity", "reason": "Distinct consequential uncertainty: when a strong fixed policy suffices; inconvenient boundary evidence must inform investment"},
+    {"paper_id": "P3", "action": "targeted_read", "focus": "Main +11% result, code version/cache timing, T-9/G-B resource conditions", "reason": "Positive but dependent near-match; could motivate transfer only if correction provenance and systems applicability are established"},
+    {"paper_id": "P7", "action": "verify_access", "focus": "Methods/result supporting up-to-2x headline; baseline, batch, metric, model/GPU, exactness and uncertainty", "reason": "Abstract alone cannot change the target-setting decision; no full access in this offline run"},
+    {"paper_id": "P1", "action": "defer", "focus": "Historical v1 policy/timing comparison against P2 only", "reason": "Original +9% is superseded; not current direct support and not a second independent work"},
+    {"paper_id": "P6", "action": "defer", "focus": "Constant-cost sequential-testing assumptions only if a later modeling need arises", "reason": "Sample-count analogy does not settle target throughput or exactness"},
+    {"paper_id": "P5", "action": "defer", "focus": "Section 7 provenance only", "reason": "No independent experiments and stale v1 gain; lower decision value than primary sources"}
+  ]
+}

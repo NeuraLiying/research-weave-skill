@@ -1,94 +1,63 @@
 ---
 name: research-weave
 description: Find and prioritize research papers for a concrete research question; reconstruct intellectual lineages, connect claims into an evidence network, and investigate conflicting findings. Use when a researcher needs to decide what to read, what prior work actually establishes, or where their project sits among competing explanations. Not for a bare bibliography, a single-paper summary, or a definitive novelty audit.
+license: MIT
+metadata:
+  version: "1.1"
 ---
 
 # Research Weave
 
-Help the researcher decide **which papers deserve attention and which research judgments they can change**. Organize around questions and claims rather than flattering paper summaries. A useful result may recommend an old diagnostic paper over a celebrated new method, or conclude that an attractive gap disappears after aligning conditions.
+Help the researcher decide which papers deserve attention and which research judgments they can change. Preserve scope, main conclusions, source dependence and counterevidence; do not turn fluent summaries into equally positive recommendations.
 
-## Start from a decision
+## Set the decision and effort
 
-Extract the research question, intended decision, target setting, known papers, and constraints from the conversation or supplied artifacts. State a concise working interpretation and proceed. Ask a focused question only if competing interpretations would produce materially different searches; continue useful work meanwhile.
+Extract the question, decision, target conditions and reading constraints from the request. State a working interpretation and proceed; ask only when different interpretations would materially change retrieval. Keep unknown model/task/budget assumptions explicit.
 
-Describe the target operationally: task/population, mechanism, comparator, outcome, resources, and assumptions. Unknowns remain unknown. If only a broad area is supplied, provisionally map its main branches and identify what needs narrowing; do not invent a project mechanism.
+Start with **Scout** for orientation or a small reading decision. Use **Map** for a requested reusable evidence network, and **Update** for an existing map. Attention budgets follow the user's constraint, not a paper-count quota. A source-limited run can finish without live retrieval; name its missing branches.
 
-| Mode | Use | Working budget, adjustable |
-|---|---|---|
-| Scout | Orientation or limited reading time | Screen roughly 15–25 candidates; inspect decision-bearing sections in 4–6 |
-| Map | Default research positioning | Screen roughly 30–60; inspect 8–12 deeply; expand selectively |
-| Update | Existing map plus new papers | Reuse IDs and evidence; investigate changed claims and dependencies |
+## Discover and inspect
 
-These are attention budgets, not coverage guarantees or quotas. Report actual counts, access limits, and omitted branches. This workflow does not establish systematic or exhaustive coverage.
+Search the problem and historical aliases, current mechanisms/evaluation, contrary or null findings, and relevant neighboring fields. Follow references and later challenges where accessible. Treat recall and reviews as leads; verify consequential claims in primary text. If a known seed is missed, repair the query/source/filter that missed it. This workflow does not establish comprehensive recall.
 
-## 1. Search across time and viewpoints
+For each inspected key paper, **capture its main claim, its decisive result/proof locations, and whether that main evidence enters the ledger before selecting secondary observations**. If access or relevance prevents this, record `main_claim_omission`. Inspect both favorable and unfavorable conditions in the relevant result block. Do not replace the central result with an easier-to-quote ancillary table. Abstract-only candidates remain provisional.
 
-Read [evidence-method.md](references/evidence-method.md) for retrieval, quality appraisal, and reading decisions.
+A useful evidence card records the scoped claim, source/version/locator, actual result and comparator, validity limitation, and its use for this decision. Separate observation, author interpretation and analyst inference whenever making those layers of claim. Numbers need their task, metric, denominator, uncertainty and resource conditions; mark unreported details.
 
-Build query channels for the problem and historical aliases; mechanism and evaluation; counterevidence/null results; and a neighboring field with a plausible transferable mechanism. Retrieve historical anchors without a recent-year cutoff, then current work through the actual search date. A date filter on new papers does not silently erase foundations needed to interpret them.
+For deeper discovery, domain-specific validity checks or reading tradeoffs, consult [evidence-method.md](references/evidence-method.md) as needed. Scout does not require loading all references.
 
-Use available academic search, primary proceedings, publisher pages, or supplied corpora. An installed `paper-search` can supply candidates but is optional. Verify identity and inspect primary text before accepting a claim. Model recall and reviews supply leads, not verified findings. If tools fail, record failed channels, try a complementary source, and deliver a bounded or corpus-only map.
+## Compare evidence
 
-Follow references backward from diverse anchors and citations forward where available. Search for reproductions, challenges, extensions, and explanations of decision-bearing claims. Inspect different research groups or methodological branches when possible. Preserve useful low-citation, negative, and older work. Merge versions of the same study without erasing which version supplied evidence.
+Use claims as analytical nodes and papers as provenance. Relationships include support, contradiction, boundary, dependency, transfer and replacement. An analyst comparison is labeled `hypothesis`; a `source_supported` edge also records the primary location supporting the relationship itself. Endpoint citations alone do not establish that relationship. They are not automatically circular reasoning either.
 
-Log queries, exclusions, access failures, and repairs as work proceeds. If an important seed is missed, diagnose vocabulary/source/time filters and rerun the repaired search; inserting the seed alone does not close the blind spot.
+For each consequential proposition, align its scope and quantifier with the evidence. Keep direct support/counterevidence separate from inspected but uninformative results, context/analogy, and unverified leads. A local negative effect does not prove universal failure; a wide interval is evidence about precision, not merely a retrieval lead.
 
-## 2. Extract claims before judging papers
+More credible, independent, applicable evidence can strengthen support. Count papers, originating result families, and independent contributions separately. Check versions, shared authors/data/code and reused results before declaring convergence; different family labels do not prove independence. Preserve possible inherited validity threats without treating them as confirmed defects.
 
-Inspect each shortlisted paper's method, relevant result/table/proof, assumptions, and limitations. Abstract-only records remain provisional. Split a headline into claims that may differ in strength.
+Compare opposing findings only after aligning definitions, tasks, models, feedback access, comparators, cost, selection and uncertainty. Use `comparable_conflict`, `scope_mismatch`, `inconclusive` or `not_opposed`; do not infer conflict from noisy point estimates. For consequential unresolved questions, consult [contradictions.md](references/contradictions.md) and give alternatives, controls, distinct predictions and an outcome that would remove the motivation. No contradiction is a valid finding.
 
-Each decision-bearing claim needs:
+## Decide, stop and update
 
-- A source link/version, precise locator, and faithful observation. Include numbers, denominators, uncertainty, comparator, and cost when relevant; mark missing reporting explicitly.
-- Conditions: task, model/population, feedback/data access, compute, metric, and other assumptions needed to interpret it.
-- Separate **source observation**, **authors' interpretation**, and **our inference**. The third is not an observed finding.
-- Evidence strength with a reason, main validity threat, and transfer limits.
-- A research role: `fact`, `mechanism`, `method`, `evaluation`, `boundary`, `counterevidence`, or `analogy`; the decision affected and transfer assumption.
+Return a short ordered queue with `deep_read`, `targeted_read`, `verify_access`, `defer` or `exclude`. Each item names the exact focus and the decision it could change. Spend limited deep reads on distinct consequential uncertainties, including inconvenient counterevidence.
 
-Keep credibility, historical influence, and project utility separate. Venue, citations, rhetorical confidence, and suspected AI authorship do not establish quality. A useful hypothesis or analogy is not factual support.
+Locate the project: inherited assumptions → established findings → unsupported step → closest competing explanation → next useful observation. Keep historical results bounded to their tested models and conditions. A gap or diagnostic experiment is not a novelty verdict.
 
-## 3. Weave a claim network and historical account
+Stop at the budget, exhausted corpus, or recorded lack of further decision change. For a live saturation claim, log `round` and changed IDs in searches; only claim two unchanged expansions when actually performed and recorded. Do not manufacture rounds for offline packets.
 
-Use papers for provenance and **claims as the analytical nodes**. Relations are `supports`, `contradicts`, `bounds`, `depends_on`, `imports`, and `supersedes`. Explain each edge, cite its evidence, and label it source-supported or analyst hypothesis. Shared keywords or a citation alone are insufficient.
+On updates, retain old IDs, versions and observations. Mark superseded/withdrawn claims and remove them from current direct support; a historically useful paper need not be excluded wholesale. Trace which downstream propositions and priorities change.
 
-Track shared datasets, code, models, protocols, and reused results. Distinct papers and authors do not automatically provide independent confirmation. Unknown independence stays unknown; source volume is not a vote.
+## Deliver proportionately
 
-Explain historical transitions by what changed: problem definition, capability, mechanism, evaluation, or exposed limitation. Calling a work a turning point requires a traceable downstream adoption/challenge or other consequence. Chronology establishes order, not influence. Include competing branches, bridges, and dead ends when relevant. Sparse evidence can produce a sparse graph; do not invent connections.
+For Scout, lead with the decision and queue in a concise report. If saving a ledger, use `schema_version: 2`, `profile: scout` and only `context`, `papers`, `claims`, `reading_queue` by default. Optional propositions/edges/tensions/searches earn their place by changing the decision. Do not generate a full network to fill slots.
 
-## 4. Assess converging support
+For a saved Scout ledger, read only [scout-format.md](references/scout-format.md) for exact field names, enums and a complete small example. The full references are for a requested Map/Update or a specific unresolved analytical question; a compact record needs no invented graph or proposition slots.
 
-For each decision-bearing proposition, group supporting claims and the strongest counterevidence. Report supporting paper count separately from evidence-family count and confirmed independent tests. More credible, independent, applicable evidence can strengthen support, especially across teams, methods, and conditions. Repeated reports of one result do not add independent confirmation; unknown independence stays unknown.
+For Map/Update or rich proposition/relationship records, read [output-contract.md](references/output-contract.md). Match the user's language. Keep saved runs outside the installed skill and preserve prior runs. A small request may remain inline.
 
-Before counting a contribution as direct support, align the proposition's scope and quantifier with the evidence. A well-supported local result does not establish a universal proposition; indirect or scope-limited clues belong in candidate evidence for that broader proposition. Record the transfer explicitly.
-
-Describe what converges and under which conditions. Assess breadth together with validity, effect/uncertainty, directness, and counterevidence; do not compute confidence by counting papers or averaging arbitrary quality scores. One sound counterexample can defeat a universal claim while leaving a narrower conditional claim intact. Record proposition-level synthesis as convergent, conditional, contested, or insufficient, with reasons.
-
-## 5. Investigate contradictions
-
-Read [contradictions.md](references/contradictions.md) when findings appear to conflict. Compare scoped claims, not titles.
-
-Align definitions, tasks, comparators, model versions, data/feedback access, compute, selection, metrics, and uncertainty. Classify tensions as `comparable_conflict`, `scope_mismatch`, `inconclusive`, or `not_opposed`. Missing comparability is not equality. Failure to find significance is not proof of no effect.
-
-For consequential unresolved tensions, give competing explanations, a test with controlled variables and distinct predicted outcomes, and an outcome that would make the proposed gap disappear. Search for later resolutions before promoting a frontier. Contradiction is a question to investigate, not proof of novelty or automatic motivation. Zero credible contradictions is valid.
-
-## 6. Prioritize attention and locate the project
-
-Build a short, ordered reading queue. Each recommendation names the section to read, question answered, decision potentially changed, and why it earns attention over alternatives. Actions are `deep_read`, `targeted_read`, `verify_access`, `defer`, and `exclude`, with reasons. Avoid recommending every candidate equally. Balance foundations, competitors, negative/boundary evidence, and bridges according to the question, not fixed slot counts.
-
-Place the project: inherited assumptions → established evidence → unsupported step → closest competing explanation → next useful observation. Distinguish established limitations, untested settings, and speculative mechanisms. Without a concrete project, locate candidate branches instead of inventing its contribution.
-
-After covering relevant branches and a counterevidence search, expand while evidence changes the queue, a consequential claim, or a tension. Normally stop after two expansions yield no such change, or at the stated budget; record which reason applied and residual blind spots. Saturation inside searched channels is not completeness.
-
-## Deliver and check
-
-Follow [output-contract.md](references/output-contract.md). Default to a concise report, reusable `evidence.json`, and search/screening log in one output directory. For small conversational requests, keep traceability inline without forcing files. Match the user's language.
-
-Lead with what to read and what can be concluded. Add a small claim graph when useful; distinguish hypothetical edges visually and explain direction. Cite sources near claims. Updates preserve earlier conclusions and record what changed them.
-
-For saved evidence run:
+Run saved ledgers through:
 
 ```bash
 python3 <skill-dir>/scripts/check_evidence.py <output-dir>/evidence.json
 ```
 
-The checker catches reference/provenance errors, not source truth. Manually reopen primary locations behind the strongest conclusions, top priorities, and claimed contradictions. Check at least one weak/excluded near-match to ensure real discrimination. Downgrade unsupported conclusions rather than filling gaps with plausible text.
+Resolve structural errors and inspect cautions. The checker validates declared data, not source meaning, logical entailment, actual independence or coverage. Reopen primary locations behind the main conclusion, top reading priorities and claimed conflicts; check at least one deferred near-match. Report unresolved semantic questions rather than forcing a zero-caution badge.
