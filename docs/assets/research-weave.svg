@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="390" viewBox="0 0 1200 390" role="img" aria-labelledby="title desc">
+  <title id="title">Research Weave</title>
+  <desc id="desc">An agent skill for finding papers that change research decisions. A network connects historical foundations, supporting evidence, and conflicting results to a focused research question.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101e35"/><stop offset="1" stop-color="#162c44"/></linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#60dbc6"/><stop offset="1" stop-color="#91abfa"/></linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#bfd2e7" opacity=".1"/></pattern>
+  </defs>
+  <rect width="1200" height="390" rx="18" fill="url(#bg)"/>
+  <rect x="635" width="565" height="390" rx="18" fill="url(#dots)"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif">
+    <rect x="54" y="45" width="123" height="28" rx="14" fill="#203f4c" stroke="#3c746f"/>
+    <text x="115" y="64" text-anchor="middle" fill="#9cf2df" font-size="12" font-weight="650" letter-spacing="1.8">AGENT SKILL</text>
+    <text x="52" y="144" fill="#f3f7fc" font-size="61" font-weight="720" letter-spacing="-2">Research Weave</text>
+    <text x="55" y="192" fill="#d1deed" font-size="24">Find papers that change</text>
+    <text x="55" y="225" fill="#d1deed" font-size="24">your research decisions.</text>
+    <rect x="55" y="258" width="70" height="3" rx="1.5" fill="#67ddc3"/>
+    <text x="55" y="299" fill="#9ab2cb" font-size="15">DISCOVER</text>
+    <circle cx="153" cy="294" r="2" fill="#6984a2"/>
+    <text x="173" y="299" fill="#9ab2cb" font-size="15">CONNECT</text>
+    <circle cx="271" cy="294" r="2" fill="#6984a2"/>
+    <text x="291" y="299" fill="#9ab2cb" font-size="15">QUESTION</text>
+    <g fill="none" stroke="url(#line)" stroke-width="2" opacity=".7">
+      <path d="M752 108 C790 108 803 185 862 190"/>
+      <path d="M752 195 L862 195"/>
+      <path d="M752 284 C800 284 808 210 862 200" stroke-dasharray="5 6"/>
+      <path d="M958 195 C1002 195 992 108 1042 108"/>
+      <path d="M958 195 L1042 195"/>
+      <path d="M958 195 C1002 195 992 284 1042 284"/>
+    </g>
+    <g>
+      <circle cx="738" cy="108" r="14" fill="#1b4350" stroke="#73ddc7" stroke-width="2"/>
+      <circle cx="738" cy="195" r="14" fill="#1b4350" stroke="#73ddc7" stroke-width="2"/>
+      <circle cx="738" cy="284" r="14" fill="#3d354a" stroke="#e4aeae" stroke-width="2"/>
+      <circle cx="1055" cy="108" r="13" fill="#243c60" stroke="#a9bbf8" stroke-width="2"/>
+      <circle cx="1055" cy="195" r="13" fill="#243c60" stroke="#a9bbf8" stroke-width="2"/>
+      <circle cx="1055" cy="284" r="13" fill="#243c60" stroke="#a9bbf8" stroke-width="2"/>
+      <rect x="862" y="150" width="96" height="90" rx="22" fill="#233c55" stroke="#9acdcf" stroke-width="2"/>
+      <text x="910" y="191" text-anchor="middle" fill="#eef8fb" font-size="15" font-weight="650">YOUR</text>
+      <text x="910" y="213" text-anchor="middle" fill="#eef8fb" font-size="15" font-weight="650">QUESTION</text>
+    </g>
+    <text x="738" y="78" text-anchor="middle" fill="#abd7d1" font-size="13">Foundations</text>
+    <text x="695" y="224" text-anchor="middle" fill="#abd7d1" font-size="13">Support</text>
+    <text x="738" y="321" text-anchor="middle" fill="#e4bebe" font-size="13">Tensions</text>
+    <text x="1055" y="78" text-anchor="middle" fill="#bac9ec" font-size="13">What to read</text>
+    <text x="1090" y="226" text-anchor="middle" fill="#bac9ec" font-size="13">What to trust</text>
+    <text x="1055" y="321" text-anchor="middle" fill="#bac9ec" font-size="13">What to test</text>
+  </g>
+</svg>

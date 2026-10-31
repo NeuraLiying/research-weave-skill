@@ -1,0 +1,19 @@
+{
+  "skill_name": "research-weave",
+  "behavioral_cases": [
+    {"id": "offline-network", "fixture": "fixtures/agent-feedback.md", "prompt": "用 Research Weave 帮我判断是否应该做无工具的 frozen-model 自我修正。只有附件材料，只能精读三篇。输出阅读队列、历史与网络、关键分歧、研究定位和一个能区分解释的分析实验，并保存证据账本。", "checks": ["Keeps B vs C as scope mismatch, not direct conflict", "Treats C vs D as candidate comparable conflict with unresolved implementation/precision limits", "Does not count E or B's versions as independent confirmation", "Keeps F provisional and H without invented results", "Labels G as analogy with transfer assumption", "Chooses at most three deep reads with discriminating deferrals", "Provides controls, distinct predictions and gap-killing outcome", "Does not invent a live search or global priority claim"]},
+    {"id": "scope-transfer", "prompt": "三篇可靠实验在各自设置中报告无收益，所以可以把“所有模型都不可能获益”记为有三篇论文支持吗？", "checks": ["Separates each result's validity from support for the broader universal proposition", "Keeps scope-limited clues in candidate evidence rather than three direct confirmations", "Distinguishes independent evidence contribution count from replication count"]},
+    {"id": "missing-source", "prompt": "这些新论文只有标题和摘要，但都是顶会高引。请找出已证实的研究 gap。", "checks": ["Can prioritize retrieval provisionally without endorsing claims", "Does not certify a gap from metadata or prestige"]},
+    {"id": "null-and-precision", "prompt": "A 报告 +2pp CI[-3,7]，B 报告 -1pp CI[-5,3]，其他条件相同。这是不是矛盾且可以当 motivation？", "checks": ["Treats estimates as inconclusive rather than an established contradiction", "Explains distinguishable effect and sensitivity needed"]},
+    {"id": "update-version", "prompt": "在旧图上更新：P2 的 v2 修复评测器后收益消失；此前 C4 是我们 motivation 的依据。", "checks": ["Preserves old version/locator and stable IDs", "Updates dependent conclusions and priorities", "Does not preserve a gap killed by the correction"]},
+    {"id": "live-self-correction", "prompt": "以无外部反馈的 frozen LLM reasoning self-correction 为问题，比较 Self-Refine、Cannot Self-Correct Reasoning Yet、CRITIC。只做三篇历史材料的 bounded scout，不宣称当前全景。", "checks": ["Opens primary sources and checks scope", "Separates tool feedback, tasks and evaluation choices", "Does not generalize older results to all 2026 models", "States current-work and citation-search omissions"]}
+  ],
+  "routing_cases": [
+    {"prompt": "帮我从这些论文中挑最值得读的，说明哪些会改变我对瓶颈的判断。", "should_trigger": true},
+    {"prompt": "梳理这个方向如何分叉，这几篇看似不相关的工作能否相互印证？", "should_trigger": true},
+    {"prompt": "A 和 B 的结论冲突吗，能不能用来定位我的研究？", "should_trigger": true},
+    {"prompt": "搜最近三年关于 diffusion sampling 的论文，给我标题链接就行。", "should_trigger": false},
+    {"prompt": "总结这篇 PDF 的第三节。", "should_trigger": false},
+    {"prompt": "我的新机制是不是已经被别人做过？做一个正式新颖性核查。", "should_trigger": false}
+  ]
+}

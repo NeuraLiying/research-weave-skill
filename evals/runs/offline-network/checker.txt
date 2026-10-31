@@ -1,0 +1,5 @@
+CAUTION: A: evidence independence not established
+CAUTION: F: evidence independence not established
+CAUTION: G: evidence independence not established
+CAUTION: H: evidence independence not established
+0 error(s), 4 caution(s). Structure only; source truth not verified.

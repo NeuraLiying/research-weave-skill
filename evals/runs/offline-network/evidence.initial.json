@@ -1,0 +1,711 @@
+{
+  "schema_version": 1,
+  "context": {
+    "question": "是否应在冻结M-1、精确答案推理、每题2000全成本tokens下，建立无工具自我修订循环？",
+    "decision": "是否承诺构建有效循环；或先做可推翻机制/复现解释的诊断实验。",
+    "target_setting": "冻结M-1；精确答案；无工具、无外部反馈/真值停止；2000全成本tokens；对照为等预算重采样。具体任务外推、模型快照、R/E正文、选择规则未知。",
+    "mode": "scout",
+    "as_of": "2026-10-31",
+    "bounds": "仅用户给定fictional A–H packet；无网络；最多三篇精读（可见节选C/D/B），其余只定点核查/筛查；非真实文献调查或新颖性审计。",
+    "stop_reason": "已筛完8项给定来源并用尽3篇精读预算；未执行两轮扩展饱和，无权扩大来源。"
+  },
+  "papers": [
+    {
+      "id": "A",
+      "title": "Iterative Drafting (2019)",
+      "url": "local:A-v1",
+      "version": "v1",
+      "access": "excerpt",
+      "evidence_family": "unknown",
+      "verification": {
+        "date": "2026-10-31",
+        "status": "supplied fictional excerpt only; not externally verified",
+        "source_file": "input.initial.md"
+      },
+      "notes": "创作偏好；120对；修订预算为对照两倍。包内循环谱系起点，不能称世界首创；包内G的2008年份也早于A。"
+    },
+    {
+      "id": "B",
+      "title": "Execution-Assisted Revision (2021)",
+      "url": "local:B-v2",
+      "version": "v2",
+      "access": "excerpt",
+      "evidence_family": "EXEC-400",
+      "verification": {
+        "date": "2026-10-31",
+        "status": "supplied fictional excerpt only; not externally verified",
+        "source_file": "input.initial.md"
+      },
+      "notes": "执行反馈；400对；同为2000全成本tokens；无无工具实验。"
+    },
+    {
+      "id": "C",
+      "title": "Revision Without External Feedback (2023)",
+      "url": "local:C-v1",
+      "version": "v1",
+      "access": "excerpt",
+      "evidence_family": "REASON-C",
+      "verification": {
+        "date": "2026-10-31",
+        "status": "supplied fictional excerpt only; not externally verified",
+        "source_file": "input.initial.md"
+      },
+      "notes": "与D共享REASON-200评估人群；结果不复用，但不能视为独立外部复现。"
+    },
+    {
+      "id": "D",
+      "title": "Intrinsic Revision Revisited (2024)",
+      "url": "local:D-v1",
+      "version": "v1",
+      "access": "excerpt",
+      "evidence_family": "REASON-D",
+      "verification": {
+        "date": "2026-10-31",
+        "status": "supplied fictional excerpt only; not externally verified",
+        "source_file": "input.initial.md"
+      },
+      "notes": "与C同测试集；新生成输出；无代码和逐题预测，独立性有限。"
+    },
+    {
+      "id": "E",
+      "title": "Three Studies Prove Critique Works (2024)",
+      "url": "local:E-v1",
+      "version": "v1",
+      "access": "excerpt",
+      "evidence_family": "EXEC-400",
+      "verification": {
+        "date": "2026-10-31",
+        "status": "supplied fictional excerpt only; not externally verified",
+        "source_file": "input.initial.md"
+      },
+      "notes": "B、B预印本及转载表格；无新实验，不是三项独立确认。"
+    },
+    {
+      "id": "F",
+      "title": "Universal Self-Improvement (2025)",
+      "url": "local:F-abstract",
+      "version": "unknown",
+      "access": "abstract",
+      "evidence_family": "unknown",
+      "verification": {
+        "date": "2026-10-31",
+        "status": "supplied fictional excerpt only; not externally verified",
+        "source_file": "input.initial.md"
+      },
+      "notes": "30%的分母、指标、模型、任务和预算均缺；高引用未核验。"
+    },
+    {
+      "id": "G",
+      "title": "Selective Measurement in Control (2008)",
+      "url": "local:G-v1",
+      "version": "v1",
+      "access": "excerpt",
+      "evidence_family": "unknown",
+      "verification": {
+        "date": "2026-10-31",
+        "status": "supplied fictional excerpt only; not externally verified",
+        "source_file": "input.initial.md"
+      },
+      "notes": "概念性控制测量；不是LLM实证，也无已证实的循环谱系联系。"
+    },
+    {
+      "id": "H",
+      "title": "Adaptive Revision Policy (2026)",
+      "url": "local:H-metadata",
+      "version": "unknown",
+      "access": "metadata",
+      "evidence_family": "unknown",
+      "verification": {
+        "date": "2026-10-31",
+        "status": "supplied fictional excerpt only; not externally verified",
+        "source_file": "input.initial.md"
+      },
+      "notes": "仅标题年份，无法提取结果。"
+    }
+  ],
+  "claims": [
+    {
+      "id": "CA",
+      "paper_id": "A",
+      "statement": "A的冻结模型循环在创作偏好评价中占优，但没有等预算精确答案证据。",
+      "kind": "empirical",
+      "scope": "单个冻结模型；创作；120配对项目；修订两倍生成预算；偏好评价。",
+      "evidence": {
+        "locator": "local:A-v1 §2, §4, Appendix A",
+        "observation": "§2定义draft→critique→revise；§4人类偏好有利于修订；附录120对；未报区间、评审一致性，未测精确答案。",
+        "authors_interpretation": "未提供超出上述偏好结果的作者解释。",
+        "analyst_inference": "循环操作可继承；不能从此估计M-1精确推理的净收益，也不能剥离额外预算效应。"
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "节选直接给出方法、范围与结果边界。",
+        "limitation": "偏好构念与精确正确率不同；额外预算混杂；缺不确定性。"
+      },
+      "uses": [
+        {
+          "role": "method",
+          "decision": "继承循环定义而拒绝据此立项效果宣称。",
+          "transfer_assumption": "复用操作不等于复用实证效应；目标需公平预算与精确答案评价。"
+        },
+        {
+          "role": "boundary",
+          "decision": "继承循环定义而拒绝据此立项效果宣称。",
+          "transfer_assumption": "复用操作不等于复用实证效应；目标需公平预算与精确答案评价。"
+        }
+      ]
+    },
+    {
+      "id": "CB",
+      "paper_id": "B",
+      "statement": "B在400配对程序题中，执行反馈修订较等预算重采样高8个百分点。",
+      "kind": "empirical",
+      "scope": "冻结M-1；精确答案程序任务；400配对；两组2000全成本tokens；含执行失败；EXEC-400。",
+      "evidence": {
+        "locator": "local:B-v2 §3, §5",
+        "observation": "§3明确引A并以执行反馈替代内在批评；§5相对等预算重采样准确率+8pp，配对95%区间[+4,+12]；无tool-free组。",
+        "authors_interpretation": "未提供独立于结果的机制结论。",
+        "analyst_inference": "外部信息条件下有正向证据，但不能将信息内容的因果作用或无工具收益视为已识别。"
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "方法、比较、n、区间和预算均在可见节选。",
+        "limitation": "仅执行任务；无无工具消融；基线绝对准确率、具体选择器、模型快照与逐题数据未提供。"
+      },
+      "uses": [
+        {
+          "role": "fact",
+          "decision": "将工具反馈路线作为边界/竞争解释，而非无工具路线的直接支持。",
+          "transfer_assumption": "迁移到无工具必须另证内在反馈提供可用新信息。"
+        },
+        {
+          "role": "boundary",
+          "decision": "将工具反馈路线作为边界/竞争解释，而非无工具路线的直接支持。",
+          "transfer_assumption": "迁移到无工具必须另证内在反馈提供可用新信息。"
+        },
+        {
+          "role": "counterevidence",
+          "decision": "将工具反馈路线作为边界/竞争解释，而非无工具路线的直接支持。",
+          "transfer_assumption": "迁移到无工具必须另证内在反馈提供可用新信息。"
+        }
+      ]
+    },
+    {
+      "id": "CC",
+      "paper_id": "C",
+      "statement": "C在目标所列条件下观测到内在修订较等预算重采样低6个百分点。",
+      "kind": "empirical",
+      "scope": "冻结M-1；REASON-200；R；E；无外部反馈；无正确性停止；两组2000全成本tokens；200配对。",
+      "evidence": {
+        "locator": "local:C-v1 §2, §3, Table 2, §6",
+        "observation": "Table 2修订减重采样=-6pp，配对95%区间[-10,-2]；§2区分偏好与正确性并引A；§6不外推到更新模型或外部验证修订。",
+        "authors_interpretation": "§6明确限定结论适用范围。",
+        "analyst_inference": "这是最直接的负向证据，足以阻止未经检验的可靠增益假设；D使该设置下的稳定净效应仍有争议。"
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "精确目标、对照、预算与区间均有节选依据。",
+        "limitation": "仅200题和给定模型；R/E仅有标识，具体文本/实现、随机种子与选择器未知；与D共享测试集。"
+      },
+      "uses": [
+        {
+          "role": "fact",
+          "decision": "先做诊断而不将无工具循环视为有效默认。",
+          "transfer_assumption": "需实际复现所列条件；不外推至其他模型和反馈制度。"
+        },
+        {
+          "role": "counterevidence",
+          "decision": "先做诊断而不将无工具循环视为有效默认。",
+          "transfer_assumption": "需实际复现所列条件；不外推至其他模型和反馈制度。"
+        },
+        {
+          "role": "evaluation",
+          "decision": "先做诊断而不将无工具循环视为有效默认。",
+          "transfer_assumption": "需实际复现所列条件；不外推至其他模型和反馈制度。"
+        }
+      ]
+    },
+    {
+      "id": "CD",
+      "paper_id": "D",
+      "statement": "D在尝试C相同设置时观测到内在修订较重采样高5个百分点。",
+      "kind": "empirical",
+      "scope": "冻结M-1；REASON-200；R；E；无外部反馈或正确性停止；2000全成本tokens；新生成输出；与C共享测试集。",
+      "evidence": {
+        "locator": "local:D-v1 §2, Methods, Table 1, §5",
+        "observation": "§2明确尝试C设置；Table 1修订减重采样=+5pp，配对95%区间[+2,+8]；§5称随机抽样和实现差异可能相关；缺代码/逐题输出。",
+        "authors_interpretation": "随机抽样、实现差异是作者提出的可能解释，未在包内被证实。",
+        "analyst_inference": "D是对“目标设置总无效”的直接反例候选，并与C构成表面条件充分对齐的真实可比冲突；不是已独立复现的稳健收益。"
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "正向点估计、区间与协议对齐来自方法/结果节选。",
+        "limitation": "不可核查实现和逐题结果；同评估人群意味着并非独立任务复制；采样次数和模型快照细节未知。"
+      },
+      "uses": [
+        {
+          "role": "fact",
+          "decision": "不能只读负面C而放弃所有诊断，也不能按正面D直接建产品。",
+          "transfer_assumption": "所列协议必须落实为同快照、同实现和同选择器。"
+        },
+        {
+          "role": "counterevidence",
+          "decision": "不能只读负面C而放弃所有诊断，也不能按正面D直接建产品。",
+          "transfer_assumption": "所列协议必须落实为同快照、同实现和同选择器。"
+        },
+        {
+          "role": "evaluation",
+          "decision": "不能只读负面C而放弃所有诊断，也不能按正面D直接建产品。",
+          "transfer_assumption": "所列协议必须落实为同快照、同实现和同选择器。"
+        }
+      ]
+    },
+    {
+      "id": "CE",
+      "paper_id": "E",
+      "statement": "E所谓三次确认都回到B的同一EXEC-400结果。",
+      "kind": "interpretive",
+      "scope": "E §3所列B、B预印本、转载B表格的教程；无新实验。",
+      "evidence": {
+        "locator": "local:E-v1 §3",
+        "observation": "E复现B的+8pp并把B、其预印本和转载列为三次确认；包内明确数据/代码/结果均属EXEC-400。",
+        "authors_interpretation": "标题使用prove是作者修辞，不是证据强度。",
+        "analyst_inference": "可以确认来源重叠；不能增加执行反馈效应的独立确认次数，更不能支持无工具修订。"
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "可见合成节选明确列出来源及无新实验。",
+        "limitation": "不是独立主实验；对B结果仅二级转述。"
+      },
+      "uses": [
+        {
+          "role": "evaluation",
+          "decision": "去重并防止以论文或版本数量替代确认。",
+          "transfer_assumption": "只可用于依赖识别，不能转为目标效应实证。"
+        },
+        {
+          "role": "counterevidence",
+          "decision": "去重并防止以论文或版本数量替代确认。",
+          "transfer_assumption": "只可用于依赖识别，不能转为目标效应实证。"
+        }
+      ]
+    },
+    {
+      "id": "CF",
+      "paper_id": "F",
+      "statement": "F摘要声称无工具修订使all reasoning提高30%，可比性不可评估。",
+      "kind": "empirical",
+      "scope": "模型、题目、提示、分母、指标、预算、选择、区间均未知。",
+      "evidence": {
+        "locator": "local:F-abstract, Abstract",
+        "observation": "唯一材料是摘要的30%主张；没有方法、完整文本、代码或独立复现；引用数未经核验。",
+        "authors_interpretation": "作者作all reasoning泛化主张；证据不可见。",
+        "analyst_inference": "只能作为访问待核验线索；不能与C/D做可信效应量比较。"
+      },
+      "assessment": {
+        "strength": "provisional",
+        "reason": "仅摘要，关键条件与效应定义缺失。",
+        "limitation": "30%可能是相对或绝对变化；无法排除预算/选择混杂。"
+      },
+      "uses": [
+        {
+          "role": "counterevidence",
+          "decision": "记录可能改变判断的线索而不把它计为支持。",
+          "transfer_assumption": "需补方法、正确率定义、真实预算、冻结状态、结果/区间后才可迁移。"
+        }
+      ]
+    },
+    {
+      "id": "CG",
+      "paper_id": "G",
+      "statement": "G讨论额外测量的信息何时足以改变行动，以及观测可靠性的作用。",
+      "kind": "interpretive",
+      "scope": "2008概念性控制论；无LLM、推理题或批评循环。",
+      "evidence": {
+        "locator": "local:G-v1 §2, §4",
+        "observation": "§2讨论预期信息能改变所选动作时是否获取额外测量；§4说明行动价值依赖观测可靠性。",
+        "authors_interpretation": "控制测量决策框架；未讨论相关模型错误的适用性。",
+        "analyst_inference": "可启发检验批评信息是否真实改变错误修复；类比迁移未验证。"
+      },
+      "assessment": {
+        "strength": "supported",
+        "reason": "支持的是节选中的概念性陈述，而非LLM机制或理论证明。",
+        "limitation": "未提供正式定理/证明；控制中的观测与同模型相关错误有实质差异。"
+      },
+      "uses": [
+        {
+          "role": "analogy",
+          "decision": "为诊断实验选择信息质量变量。",
+          "transfer_assumption": "必须实证验证内在反馈可靠性及与原解错误的相关性，不能把类比当成机制证据。"
+        }
+      ]
+    }
+  ],
+  "propositions": [
+    {
+      "id": "P1",
+      "statement": "在目标M-1/2000-token条件下，无工具内在修订可靠优于公平重采样。",
+      "scope": "REASON-200、R、E，冻结M-1，无外部反馈/正确性停止；稳定性与任务外泛化另需证据。",
+      "supporting_claim_ids": [
+        "CD"
+      ],
+      "counter_claim_ids": [
+        "CC"
+      ],
+      "candidate_claim_ids": [
+        "CF"
+      ],
+      "synthesis": "contested",
+      "independent_evidence_count": null,
+      "independence_assessment": "支持论文1(D)、已知支持结果族1(REASON-D)；反证论文1(C)、反证结果族1(REASON-C)。两篇不同新生成结果共用REASON-200；可见材料不证明独立实施/种子/评估。独立确认次数未知，不以两个族名推成两次独立验证。",
+      "coverage": "两份同模型、同题集、同预算/提示/评估标识的实证节选；团队身份未知，任务/方法/测量多样性低。F仅摘要不计支持。",
+      "justification": "D +5pp[2,8]与C -6pp[-10,-2]各有配对区间，但无法核查实施差异或计算跨研究差值的精度；不能投票或平均效应。当前不支持可靠增益的决策承诺。"
+    },
+    {
+      "id": "P2",
+      "statement": "内在修订在这个目标设置下一概有害或不可能获益。",
+      "scope": "同P1；这是全称断言，不等于C的局部观测。",
+      "supporting_claim_ids": [
+        "CC"
+      ],
+      "counter_claim_ids": [
+        "CD"
+      ],
+      "candidate_claim_ids": [],
+      "synthesis": "contested",
+      "independent_evidence_count": null,
+      "independence_assessment": "支持1篇/1已知结果族，反证1篇/1结果族；共享测试集、实施独立性未知。",
+      "coverage": "只覆盖M-1与REASON-200；不覆盖其他模型或工具路线。",
+      "justification": "C的负效应不证明普遍失败，D是在名义相同条件下的正向反证；即使有更多负面论文，一个可信在域正例也可击破全称失败断言。"
+    },
+    {
+      "id": "P3",
+      "statement": "在B的程序题设置下，执行反馈修订较等预算重采样有正向收益。",
+      "scope": "冻结M-1，400配对程序题、2000全成本tokens、含执行失败；有外部执行反馈。",
+      "supporting_claim_ids": [
+        "CB"
+      ],
+      "counter_claim_ids": [],
+      "candidate_claim_ids": [],
+      "synthesis": "conditional",
+      "independent_evidence_count": 0,
+      "independence_assessment": "直接支持论文1(B)、主实验结果族1(EXEC-400)；E是另1篇支持性转述，但不计直接支持论文或独立确认。已确认的外部独立复现为0；不把未发现表述为不存在。",
+      "coverage": "一个执行任务族/冻结模型/正确率评价；团队、跨任务稳健性未知。",
+      "justification": "有+8pp[4,12]的直接证据且预算公平；只有一个底层实验，没有无工具组或信息内容消融。属于条件支持，未形成跨独立实验收敛。"
+    },
+    {
+      "id": "P4",
+      "statement": "所给材料已为“无工具M-1循环有效”提供多篇独立、直接、适用的收敛证据。",
+      "scope": "只用这8项材料，并区分实验、摘要、元数据与重复转述。",
+      "supporting_claim_ids": [],
+      "counter_claim_ids": [
+        "CC",
+        "CE"
+      ],
+      "candidate_claim_ids": [
+        "CD",
+        "CF"
+      ],
+      "synthesis": "insufficient",
+      "independent_evidence_count": 0,
+      "independence_assessment": "该“多篇独立收敛”命题没有直接支持；E只含一个EXEC-400家族，C/D共享人群且结果相反；目标正向候选D单项，不构成独立收敛。",
+      "coverage": "A创作偏好且预算不同；B/E有工具；G是类比；F/H访问不足。",
+      "justification": "更多可信、独立、适用的研究原则上会增加支持广度；当前论文数量增加没有相应增加目标条件下的独立直接证据。缺乏收敛不等于证明无效。"
+    },
+    {
+      "id": "P5",
+      "statement": "内在批评的信息可靠性足以解释C/D差异或带来目标任务增益。",
+      "scope": "冻结同模型产生的批评；工具禁用、预算匹配；这是待检验机制。",
+      "supporting_claim_ids": [],
+      "counter_claim_ids": [],
+      "candidate_claim_ids": [
+        "CG",
+        "CB",
+        "CC",
+        "CD"
+      ],
+      "synthesis": "insufficient",
+      "independent_evidence_count": null,
+      "independence_assessment": "0篇直接机制支持，0个已知直接机制实验族；间接候选来自工具收益、相反无工具结果及控制类比，不是独立机制验证。",
+      "coverage": "G无LLM实验；B缺无工具与信息内容消融；C/D给净效果未识别中介。",
+      "justification": "信息解释、额外计算解释、抽样/实施解释都与现有节选相容；应通过配对控制分析而非当作现成贡献。"
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "source": "CB",
+      "target": "CA",
+      "relation": "imports",
+      "status": "source_supported",
+      "evidence_claims": [
+        "CB",
+        "CA"
+      ],
+      "rationale": "B §3明确引A并保留循环，替换为执行反馈；方向表示B借入A的方法。",
+      "independence": "unknown"
+    },
+    {
+      "id": "E2",
+      "source": "CC",
+      "target": "CA",
+      "relation": "bounds",
+      "status": "source_supported",
+      "evidence_claims": [
+        "CC",
+        "CA"
+      ],
+      "rationale": "C §2直接区分A的偏好结果与精确正确率，并提供目标设置负效应，限制将A结果泛化的解释。",
+      "independence": "unknown"
+    },
+    {
+      "id": "E3",
+      "source": "CD",
+      "target": "CC",
+      "relation": "contradicts",
+      "status": "source_supported",
+      "evidence_claims": [
+        "CD",
+        "CC"
+      ],
+      "rationale": "D明确尝试C设置，所列任务/模型/提示/评估/预算/反馈对齐而效应符号相反；见T1，隐藏实现仍未知。",
+      "independence": "unknown"
+    },
+    {
+      "id": "E4",
+      "source": "CE",
+      "target": "CB",
+      "relation": "depends_on",
+      "status": "source_supported",
+      "evidence_claims": [
+        "CE",
+        "CB"
+      ],
+      "rationale": "E复用B结果；不是独立确认。",
+      "independence": "shared"
+    },
+    {
+      "id": "E5",
+      "source": "CC",
+      "target": "CB",
+      "relation": "bounds",
+      "status": "source_supported",
+      "evidence_claims": [
+        "CC",
+        "CB"
+      ],
+      "rationale": "C明确排除外部反馈与外部验证结论；B有执行反馈。该边限制把B收益直接迁移到无工具环境，并非反驳B。",
+      "independence": "unknown"
+    },
+    {
+      "id": "E6",
+      "source": "CC",
+      "target": "CG",
+      "relation": "imports",
+      "status": "hypothesis",
+      "evidence_claims": [
+        "CC",
+        "CG"
+      ],
+      "rationale": "分析者把测量可靠性类比引入C所暴露的无工具错误修正问题；没有C引用G或机制已证实的证据。",
+      "independence": "unknown"
+    }
+  ],
+  "tensions": [
+    {
+      "id": "T1",
+      "claim_ids": [
+        "CC",
+        "CD"
+      ],
+      "classification": "comparable_conflict",
+      "comparison": "aligned: M-1冻结, REASON-200, R, E, 无外部反馈, 无正确性停止, 等预算2000全成本tokens, 相对重采样的最终正确率; different: 研究年份, 新生成随机输出, C=-6pp vs D=+5pp; unknown: 实际模型快照标识, R/E正文与执行一致性, 随机种子/重复次数, 选择器与token计费实现, 代码/逐题输出, 跨研究差值不确定性",
+      "explanation": "在所列方法条件下足够可比且精确估计方向相反；D明确尝试C。因此保留真实可比冲突，同时承认隐藏条件可在工件审计后改变分类。共享评估人群限制独立性；两个各自配对区间不能给出研究差值的区间。",
+      "alternatives": [
+        "随机抽样/有限题集方差",
+        "实现、模型快照、token计费或选择规则的未披露差异",
+        "信息可靠性或错误损伤/修复分布差异"
+      ],
+      "frontier_candidate": true,
+      "test": {
+        "variable": "一个预注册的配对、多随机种子信息诊断实验：相同初答后，在内在批评修订、同长打乱批评修订、无批评继续推理、等预算独立重采样四臂之间比较；无工具或推理时真值反馈。",
+        "controls": "固定可核验M-1快照、REASON-200题目、可得时的原始R与E、提取规则、允许的选择器及停止规则。按项目与随机种子块配对共享初答，各臂初答/批评/重采样/选择总token<=2000，模型自选择费用计入；禁用oracle停止及真值选择。盲评最终selected pass@1，报告逐题wrong→right、right→wrong及net，记录真实token/调用数；评估标签仅离线分析。按题聚类配对区间并纳入跨种子方差，不能把同题重复当新独立题。R/E正文、代码、快照/种子未提供，须先冻结重建协议；如拿不到原版，仅能称探索性重建，不能称复现C/D。",
+        "predictions": "可靠内在信息而非纯额外计算: 在对齐预算与选择后，真实批评同时优于无批评继续推理和重采样；正确定位错误的批评与救回wrong→right一致，打乱批评失去收益。单独优于打乱臂不足，因为打乱内容可能有害。; 额外计算/再抽样或选择造成收益: 真实批评无稳定额外优势，继续推理或重采样匹配其最终正确率；若共享选择器/计费后收益消失，则优先归于选择/资源差异。; 采样波动或未披露实现差异导致C/D相反: 统一实现后出现较大的跨种子符号波动，或在审计到具体实现差异后仅该差异能稳定翻转效应；若统一协议稳定一侧，则只能缩小解释，不能回溯证明原研究哪项错误。",
+        "gap_killer": "若严格计费与共同选择后真实批评较重采样/继续推理无有意义优势，且right→wrong损伤抵消救回，则放弃“该M-1/预算下内在批评独有价值”的动机。预先与使用者定最小有用效应（例如2pp仅作设计阈值，非源结果）；若区间仍宽，不当作零效应，应判不确定。若原始工件显示指标错误或版本差异已解释C/D，则取消其作为未解冲突的定位。"
+      },
+      "resolution_search": "date: 2026-10-31; source: supplied packet A–H only; query: within-packet references to C/D replication, implementation, later resolution; inspect E/F/H as later records; outcome: D §5仅给可能解释；E复制B；F摘要不可评估；H仅标题。包内没有后来解决；无在线查询，无法断言真实文献未解决。"
+    },
+    {
+      "id": "T2",
+      "claim_ids": [
+        "CB",
+        "CC"
+      ],
+      "classification": "scope_mismatch",
+      "comparison": "aligned: 冻结M-1, 精确答案, 2000全成本tokens, 匹配预算重采样基线; different: B有执行反馈而C无外部反馈, 程序题EXEC-400 vs REASON-200, 400 vs 200配对项目; unknown: 具体提示/选择规则的对齐, 外部信息作用的因果识别",
+      "explanation": "+8与-6没有在同一个反馈/任务条件下对立。差异可提示信息边界，但尚不证明反馈是因果调节量。",
+      "frontier_candidate": false,
+      "resolution_search": "date: 2026-10-31; source: supplied B/C excerpts; query: inspect presence of tool-free arm or matched feedback ablation; outcome: B明确无无工具组；C明确不外推外部验证；包内未有调节量消融。"
+    },
+    {
+      "id": "T3",
+      "claim_ids": [
+        "CF",
+        "CC",
+        "CD"
+      ],
+      "classification": "inconclusive",
+      "comparison": "aligned: F作者声称无工具推理，具体构念不明; different: F声称all reasoning/30%；C/D明确绝对百分点对照; unknown: F模型/数据/指标分母/预算/选择/区间",
+      "explanation": "不能将摘要口号视为对C或D的可靠反驳；F的高引用不能补方法缺失。",
+      "frontier_candidate": false,
+      "resolution_search": "date: 2026-10-31; source: supplied F abstract only; query: check within supplied packet for methods, full text or reproduction; outcome: 无；受只用附件限制不尝试访问外部。"
+    },
+    {
+      "id": "T4",
+      "claim_ids": [
+        "CA",
+        "CC"
+      ],
+      "classification": "scope_mismatch",
+      "comparison": "aligned: 冻结模型draft-critique-revise操作; different: 创作偏好vs精确正确率, 两倍预算vs预算匹配, 模型/任务不一致或未知; unknown: A模型是否M-1, 偏好与真实正确性的关系",
+      "explanation": "A的偏好正效应与C的精确正确率负效应不矛盾；C已明确提出该构念边界。",
+      "frontier_candidate": false,
+      "resolution_search": "date: 2026-10-31; source: supplied A/C excerpts; query: inspect task, metric and budget alignment; outcome: 指标与预算不匹配，包内可以解释表面分歧；不需要把它提升为新前沿。"
+    }
+  ],
+  "reading_queue": [
+    {
+      "paper_id": "C",
+      "action": "deep_read",
+      "focus": "§2构念边界；§3配对协议/预算；Table 2；§6适用界限。仅能精读所供节选，非全篇。",
+      "reason": "最直接目标负面证据，决定是否停止把循环有效当默认；应与D成对读，不能只读正面研究。"
+    },
+    {
+      "paper_id": "D",
+      "action": "deep_read",
+      "focus": "§2复现目标；Methods；Table 1；§5差异解释和缺失工件。仅节选。",
+      "reason": "与C名义协议相同却反向，决定不做全称失败断言，并把工作转为工件/随机性诊断；代码和逐题预测不可得。"
+    },
+    {
+      "paper_id": "B",
+      "action": "deep_read",
+      "focus": "§3从A借入循环和改变反馈；§5 EXEC-400的匹配预算对照与区间。仅节选。",
+      "reason": "最有信息的竞争路线与适用边界；可防将工具收益偷换成无工具收益；比第三篇重复无工具摘要更能改变解释。"
+    },
+    {
+      "paper_id": "A",
+      "action": "targeted_read",
+      "focus": "§2循环定义，§4/Appendix A指标、n和预算。",
+      "reason": "补清包内循环谱系与构念变迁；无需占据三篇精读名额，创作偏好不能支撑目标净效果。"
+    },
+    {
+      "paper_id": "G",
+      "action": "targeted_read",
+      "focus": "§2额外测量改变行动，§4可靠性。",
+      "reason": "只作诊断变量的桥接类比；不会把2008概念文本当LLM前驱实证。"
+    },
+    {
+      "paper_id": "E",
+      "action": "exclude",
+      "focus": "§3 B/预印本/教程依赖关系。",
+      "reason": "作为效果确认来源排除；已核查节选用于去重，仍保留依赖记录，不删掉不便证据。"
+    },
+    {
+      "paper_id": "F",
+      "action": "verify_access",
+      "focus": "需要方法、任务/模型、30%定义、分母、预算/选择规则、区间与全文结果。",
+      "reason": "潜在重要正面线索，但摘要无法排除范围/资源偏差；受仅附件限制本轮不能补齐，不占精读或支持票数。"
+    },
+    {
+      "paper_id": "H",
+      "action": "verify_access",
+      "focus": "至少摘要与方法/结果；核对是否真正无工具、冻结M-1、2000tokens。",
+      "reason": "标题不提供可用结果。访问核验待用户未来提供，不虚构2026进展。"
+    }
+  ],
+  "searches": [
+    {
+      "channel": "supplied-corpus",
+      "query": "Inventory A–H, years, versions, available sections; no live search",
+      "source": "input.initial.md",
+      "date": "2026-10-31",
+      "outcome": "实际筛查8项：6项方法/结果/概念节选、1摘要(F)、1元数据(H)。精读预算3，用于C/D/B；另A/E/G定点核查，不称完整全文阅读。",
+      "kept_ids": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ]
+    },
+    {
+      "channel": "historical",
+      "query": "Within packet: draft/critique/revise; preference vs exact-answer; cited origins",
+      "source": "local:A-v1 §2/§4; local:B-v2 §3; local:C-v1 §2; local:G-v1 §2/§4",
+      "date": "2026-10-31",
+      "outcome": "A→B操作继承、A→C评价边界有明确引用。G年代更早但与A/B/C无已示引用或影响；A所称最早限定为包内循环分支以避免日期冲突。",
+      "kept_ids": [
+        "A",
+        "B",
+        "C",
+        "G"
+      ]
+    },
+    {
+      "channel": "current-problem-and-evaluation",
+      "query": "Within packet: frozen M-1; tool-free/intrinsic feedback; exact-answer; 2,000 all-in tokens; matched-budget resampling",
+      "source": "local:B-v2; local:C-v1; local:D-v1; local:F-abstract; local:H-metadata",
+      "date": "2026-10-31",
+      "outcome": "C/D最直接且冲突，B是外部反馈条件支持；F关键字段缺失，H仅元数据。",
+      "kept_ids": [
+        "B",
+        "C",
+        "D",
+        "F",
+        "H"
+      ]
+    },
+    {
+      "channel": "challenge-and-dependency",
+      "query": "Within packet: negative effects, replication, null/boundary, result reuse and later resolution",
+      "source": "local:C-v1 §6; local:D-v1 §2/§5; local:E-v1 §3; local:F-abstract; local:H-metadata",
+      "date": "2026-10-31",
+      "outcome": "保留C负证据；D与C可比冲突但共享评估人群；E三次确认都为EXEC-400；没有提供解决C/D的后来材料。",
+      "kept_ids": [
+        "C",
+        "D",
+        "E",
+        "F",
+        "H"
+      ]
+    },
+    {
+      "channel": "bridge",
+      "query": "Within packet: selective measurement; information changes action; reliability",
+      "source": "local:G-v1 §2/§4",
+      "date": "2026-10-31",
+      "outcome": "可启发信息质量诊断；与相关模型错误的迁移未验证。",
+      "kept_ids": [
+        "G"
+      ]
+    },
+    {
+      "channel": "backward-forward-followup",
+      "query": "Inspect supplied explicit reference chains A→B, A→C, C→D; later supplied records E/F/H",
+      "source": "input.initial.md",
+      "date": "2026-10-31",
+      "outcome": "只核对节选中的明确引用/重用；未实际访问参考文献表或进行引文索引前向检索。F方法、H全文不可得；无网络搜索、无访问修复途径，不声称已查更正/撤稿或全文。",
+      "kept_ids": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "H"
+      ]
+    }
+  ]
+}
